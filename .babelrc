@@ -1,0 +1,15 @@
+{
+    "presets": [
+        [
+            "latest",
+            {
+                "modules": false
+            }
+        ],
+        "react",
+        "stage-0"
+    ],
+    "plugins": [
+        "transform-runtime"
+    ]
+}
