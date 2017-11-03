@@ -1,0 +1,210 @@
+{
+  "entry": {
+    "index": [
+      "webpack-dev-server/client?http://192.168.1.4:3001",
+      "webpack/hot/only-dev-server",
+      "react-hot-loader/patch",
+      "/Users/yaojunquan/code/learn/react-start/src/entries/index.js"
+    ],
+    "index2": [
+      "webpack-dev-server/client?http://192.168.1.4:3001",
+      "webpack/hot/only-dev-server",
+      "react-hot-loader/patch",
+      "/Users/yaojunquan/code/learn/react-start/src/entries/index2.js"
+    ]
+  },
+  "output": {
+    "path": "/Users/yaojunquan/code/learn/react-start/dist",
+    "filename": "js/[name].js",
+    "publicPath": "../",
+    "chunkFilename": "js/[id].js",
+    "library": "",
+    "hotUpdateFunction": "webpackHotUpdate",
+    "jsonpFunction": "webpackJsonp",
+    "libraryTarget": "var",
+    "sourceMapFilename": "[file].map[query]",
+    "hotUpdateChunkFilename": "[id].[hash].hot-update.js",
+    "hotUpdateMainFilename": "[hash].hot-update.json",
+    "crossOriginLoading": false,
+    "chunkLoadTimeout": 120000,
+    "hashFunction": "md5",
+    "hashDigest": "hex",
+    "hashDigestLength": 20,
+    "devtoolLineToLine": false,
+    "strictModuleExceptionHandling": false
+  },
+  "module": {
+    "rules": [
+      {
+        "test": {},
+        "exclude": {},
+        "use": [
+          "babel-loader",
+          "react-hot-loader/webpack"
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          "style-loader",
+          "css-loader"
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          "style-loader",
+          "css-loader",
+          "less-loader"
+        ]
+      },
+      {
+        "test": {},
+        "use": [
+          {
+            "loader": "url-loader",
+            "options": {
+              "limit": 8192,
+              "name": "images/[name]-[hash].[ext]"
+            }
+          }
+        ]
+      }
+    ],
+    "unknownContextRequest": ".",
+    "unknownContextRegExp": false,
+    "unknownContextRecursive": true,
+    "unknownContextCritical": true,
+    "exprContextRequest": ".",
+    "exprContextRegExp": false,
+    "exprContextRecursive": true,
+    "exprContextCritical": true,
+    "wrappedContextRegExp": {},
+    "wrappedContextRecursive": true,
+    "wrappedContextCritical": false,
+    "strictExportPresence": false,
+    "strictThisContextOnImports": false,
+    "unsafeCache": true
+  },
+  "plugins": [
+    {
+      "options": {
+        "template": "/Users/yaojunquan/code/learn/react-start/node_modules/html-webpack-plugin/lib/loader.js!/Users/yaojunquan/code/learn/react-start/src/templates/index.html",
+        "filename": "index.html",
+        "hash": false,
+        "inject": true,
+        "compile": true,
+        "favicon": false,
+        "minify": false,
+        "cache": true,
+        "showErrors": true,
+        "chunks": [
+          "common",
+          "/Users/yaojunquan/code/learn/react-start/src/entries/index.js"
+        ],
+        "excludeChunks": [],
+        "title": "Webpack App",
+        "xhtml": false
+      }
+    },
+    {
+      "options": {
+        "template": "/Users/yaojunquan/code/learn/react-start/node_modules/html-webpack-plugin/lib/loader.js!/Users/yaojunquan/code/learn/react-start/src/templates/index2.html",
+        "filename": "index2.html",
+        "hash": false,
+        "inject": true,
+        "compile": true,
+        "favicon": false,
+        "minify": false,
+        "cache": true,
+        "showErrors": true,
+        "chunks": [
+          "common",
+          "/Users/yaojunquan/code/learn/react-start/src/entries/index2.js"
+        ],
+        "excludeChunks": [],
+        "title": "Webpack App",
+        "xhtml": false
+      }
+    },
+    {
+      "options": {},
+      "fullBuildTimeout": 200,
+      "requestTimeout": 10000
+    },
+    {},
+    {
+      "keys": [
+        "NODE_ENV"
+      ],
+      "defaultValues": {}
+    },
+    {
+      "chunkNames": [
+        "common"
+      ],
+      "filenameTemplate": "js/[name].js",
+      "minChunks": 2,
+      "ident": "/Users/yaojunquan/code/learn/react-start/node_modules/webpack/lib/optimize/CommonsChunkPlugin.js0"
+    },
+    {
+      "options": {}
+    },
+    {}
+  ],
+  "devtool": "eval",
+  "cache": true,
+  "context": "/Users/yaojunquan/code/learn/react-start",
+  "target": "web",
+  "node": {
+    "console": false,
+    "process": true,
+    "global": true,
+    "Buffer": true,
+    "setImmediate": true,
+    "__filename": "mock",
+    "__dirname": "mock"
+  },
+  "performance": {
+    "maxAssetSize": 250000,
+    "maxEntrypointSize": 250000,
+    "hints": false
+  },
+  "resolve": {
+    "unsafeCache": true,
+    "modules": [
+      "node_modules"
+    ],
+    "extensions": [
+      ".js",
+      ".json"
+    ],
+    "mainFiles": [
+      "index"
+    ],
+    "aliasFields": [
+      "browser"
+    ],
+    "mainFields": [
+      "browser",
+      "module",
+      "main"
+    ],
+    "cacheWithContext": false
+  },
+  "resolveLoader": {
+    "unsafeCache": true,
+    "mainFields": [
+      "loader",
+      "main"
+    ],
+    "extensions": [
+      ".js",
+      ".json"
+    ],
+    "mainFiles": [
+      "index"
+    ],
+    "cacheWithContext": false
+  }
+}

@@ -2,15 +2,12 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const glob = require('glob');
-const logUpdate = require('log-update');
-const numeral = require('numeral');
 
 
-const {ROOT_PATH, DEVELOPMENT_IP, DEVELOPMENT_PORT, RELEASE_PATH} = require('./config');
+const { ROOT_PATH, DEVELOPMENT_IP, DEVELOPMENT_PORT, RELEASE_PATH } = require('./config');
 const SOURCE = 'src';
 const DEVELOPMENT = 'development';
 const PRODUCTION = 'production';
-const NODE_MODULES = 'node_modules';
 const ENTRIES_FOLDER = 'entries';
 const HTML_FOLDER = 'templates';
 const COMMON_CHUNK_NAME = 'common';
@@ -20,18 +17,13 @@ const NODE_ENV = process.env.NODE_ENV || PRODUCTION;
 //rules
 const jsRule = {
     test: /\.js$/,
-    include: [
-        SOURCE_PATH
-    ],
+    exclude: /node_modules/,
     use: [
         'babel-loader',
     ],
 };
 const cssRule = {
     test: /\.css$/,
-    include: [
-        SOURCE_PATH
-    ],
     use: [
         'style-loader',
         'css-loader',
@@ -39,16 +31,12 @@ const cssRule = {
 };
 const lessRule = {
     test: /\.less$/,
-    include: [
-        SOURCE_PATH
-    ],
     use: [
         'style-loader',
         'css-loader',
         'less-loader',
     ],
 };
-
 
 const fileRule = {
     test: /\.(png|jpg|gif)$/,
@@ -66,24 +54,16 @@ const fileRule = {
 let devtool = 'source-map';
 let plugins = [];
 let entries = getEntries();//obj格式的入口
-const entryList = Object.keys(entries).map(key => {
-    return entries[key];
-});//array格式的入口
 const htmlPlugins = Object.keys(entries).map((key) => {
-    console.log(key);
     const entry = entries[key];
-    console.log(entry)
     const htmlPath = entry.replace(`${ENTRIES_FOLDER}/${key}.js`, `${HTML_FOLDER}/${key}.html`);
-    const filename = path.basename(htmlPath, '.html');
-    console.log(htmlPath);
+    const filename = path.basename(htmlPath);
     return new HtmlWebpackPlugin({
         template: htmlPath,
         filename,
-        hash: true,
-        inject: 'body',
         chunks: [
             COMMON_CHUNK_NAME,
-            filename,
+            key,
         ],
     })
 });
@@ -95,7 +75,6 @@ switch (NODE_ENV) {
         plugins = [
             ...htmlPlugins,
             new webpack.HotModuleReplacementPlugin(),
-            new webpack.NoEmitOnErrorsPlugin(),
         ];
         // support react-hot-loader@3, @see https://github.com/gaearon/react-hot-loader/tree/next-docs
         jsRule.use.push('react-hot-loader/webpack');
@@ -112,11 +91,11 @@ switch (NODE_ENV) {
 
 }
 module.exports = {
-    entry:entries,
+    entry: entries,
     output: {
         path: path.resolve(ROOT_PATH, RELEASE_PATH),
         filename: 'js/[name].js',
-        publicPath: '../',
+        publicPath: './',
     },
     module: {
         rules: [
@@ -126,7 +105,7 @@ module.exports = {
             fileRule
         ],
     },
-    plugins:[
+    plugins: [
         ...plugins,
         new webpack.EnvironmentPlugin([
             'NODE_ENV',
@@ -136,14 +115,15 @@ module.exports = {
             // pages rests in different folder levels
             filename: 'js/[name].js',
             minChunks: 2, // Infinity
-        }),
-        new webpack.NamedModulesPlugin(),
-        new webpack.ProgressPlugin((percentage, msg) => {
-            logUpdate('     progress:', numeral(percentage).format('00.00%'), msg);
-        }),
+        })
     ],
     devtool
 };
+
+/*
+* util func
+* */
+
 
 function getEntries() {
     const entries = {};
@@ -163,8 +143,6 @@ function addDevToEntry(entry) {
         const ent = entry[entryName];
         newEntry[entryName] = [
             `webpack-dev-server/client?http://${DEVELOPMENT_IP}:${DEVELOPMENT_PORT}`,
-            'webpack/hot/log-apply-result',
-            // webpackConfig.entry[entryName].unshift('webpack/hot/dev-server');
             'webpack/hot/only-dev-server',
             // support react-hot-loader@3, @see https://github.com/gaearon/react-hot-loader/tree/next-docs
             'react-hot-loader/patch',

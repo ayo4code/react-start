@@ -2,9 +2,12 @@ const open = require('react-dev-utils/openBrowser');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('../webpack.config');
+const fs = require('fs');
+const path = require('path');
 
 const {RELEASE_PATH, MOCK_SERVER_BASE, DEVELOPMENT_PORT, DEVELOPMENT_IP} = require('../config');
 const compiler = webpack(webpackConfig);
+fs.writeFile(path.resolve(__dirname,'config.json'),JSON.stringify(webpackConfig))
 let opened = false;
 
 const devServerOptions = {
@@ -24,8 +27,8 @@ const server = new WebpackDevServer(compiler, devServerOptions);
 const openBrowser = () => {
     const address = server.listeningApp.address();
     const url = `http://${address.address}:${address.port}`;
-    console.log(`   server started: ${url}`);
-    open(`${url}/html/index.html`);
+    console.log(`server started: ${url}`);
+    open(`${url}/index.html`);
 };
 
 compiler.plugin('done', () => {

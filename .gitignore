@@ -3,5 +3,5 @@
 .DS_Store
 node_modules
 npm-debug.log
-release
+dist
 yarn-error.log
